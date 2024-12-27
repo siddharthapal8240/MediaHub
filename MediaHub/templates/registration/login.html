@@ -1,12 +1,58 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h2>Login form</h2>
-<form  method="post">
-  {% csrf_token %}
-  {{form.as_p}}
-  <button class="btn btn-primary">Register</button>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <h2 class="text-center mb-4">Login Form</h2>
+      <form method="post" class="p-4 shadow rounded bg-light">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="mb-3">
+          <label for="{{ field.id_for_label }}" class="form-label text-dark fw-bold">
+            {{ field.label }}{% if field.field.required %} <span class="text-danger">*</span>{% endif %}
+          </label>
+          {{ field }}
+          {% if field.errors %}
+          <div class="text-danger small mt-1">
+            {{ field.errors.as_text|linebreaks }}
+          </div>
+          {% endif %}
+        </div>
+        {% endfor %}
+        <button class="btn btn-primary w-100 mt-3">Login</button>
+      </form>
+      <p class="text-center mt-3">
+        Don't have an account? <a href="{% url 'register' %}" class="text-primary">Register here</a>
+      </p>
+    </div>
+  </div>
+</div>
 
-</form>
-<p>Dont have an account? <a href="{% url 'register' %}">Register here</a></p>
+<style>
+  input, textarea, select {
+    background-color: #f8f9fa; /* Light gray background for ray shading */
+    color: #000000; /* Black text color */
+    border: 1px solid #ced4da;
+    padding: 10px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    width: 100%;
+  }
+  input:focus, textarea:focus, select:focus {
+    background-color: #ffffff; /* White when focused */
+    color: #000000; /* Black text color remains on focus */
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+  }
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+</style>
 {% endblock %}

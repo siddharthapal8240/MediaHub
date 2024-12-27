@@ -1,7 +1,17 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h2>Logged out</h2>
-
-<p>You have been logged out <a href="{% url 'login' %}">Login here</a></p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4 text-center">
+      <div class="p-4 shadow rounded bg-light">
+        <h2 class="mb-4">Logged Out</h2>
+        <p class="text-muted">
+          You have been successfully logged out. 
+          <a href="{% url 'login' %}" class="text-primary">Login here</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
