@@ -8,6 +8,14 @@ MediaHub
 <div class="container mt-5">
   <h1 class="text-center mt-4 mb-5">Welcome to MediaHub</h1>
 
+  <!-- Search Bar -->
+  <form method="get" class="mb-4">
+    <div class="input-group">
+      <input type="text" name="q" class="form-control" placeholder="Search tweets..." value="{{ request.GET.q|default_if_none:'' }}">
+      <button class="btn btn-outline-primary" type="submit">Search</button>
+    </div>
+  </form>
+
   <a class="btn btn-primary mb-4" href="{% url 'tweet_create' %}">Create a tweet</a>
 
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
