@@ -61,12 +61,12 @@ MediaHub
     const button = event.target;
 
     if (img.style.height === '200px') {
-      img.style.height = 'auto'; // Set the image to its natural height
-      img.style.objectFit = 'contain'; // Ensure the image maintains its aspect ratio
+      img.style.height = 'auto'; 
+      img.style.objectFit = 'contain'; 
       button.innerText = 'View Less';
     } else {
-      img.style.height = '200px'; // Revert back to the cropped height
-      img.style.objectFit = 'cover'; // Maintain the cover effect
+      img.style.height = '200px'; 
+      img.style.objectFit = 'cover'; 
       button.innerText = 'View Full';
     }
   }
