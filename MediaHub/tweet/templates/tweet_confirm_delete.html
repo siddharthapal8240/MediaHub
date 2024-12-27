@@ -1,18 +1,21 @@
 {% extends "layout.html" %}
 
 {% block title %}
-Chai aur tweet
+MediaHub
 {% endblock %}
 
 {% block content %}
+<div class="container mt-5">
+  <h1 class="text-center mt-4">Are you sure that you want to delete the tweet?</h1>
 
-<h1 class="text-center  mt-4">Are you sure that you want to delete the tweet ?</h1>
-
-<form  method="post">
-  {% csrf_token %}
-  <button class="btn btn-danger">Delete</button>
-  <a class="btn btn-success" href="{% url 'tweet_list' %}">Cancel</a>
-</form>
-
-
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <form method="post" class="p-4 shadow rounded bg-light text-center">
+        {% csrf_token %}
+        <button class="btn btn-danger w-100 mb-3" type="submit">Delete</button>
+        <a class="btn btn-success w-100" href="{% url 'tweet_list' %}">Cancel</a>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}
