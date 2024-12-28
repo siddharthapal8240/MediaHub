@@ -2,7 +2,9 @@ certifi==2024.12.14
 charset-normalizer==3.4.1
 cloudinary==1.41.0
 django-cloudinary-storage==0.3.0
+gunicorn==23.0.0
 idna==3.10
+packaging==24.2
 requests==2.32.3
 six==1.17.0
 urllib3==2.3.0
