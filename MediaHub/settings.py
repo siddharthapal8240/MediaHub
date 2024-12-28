@@ -131,7 +131,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 
-if ENVIRONMENT == os.getenv('DJANGO_ENV', 'development'):
+ENVIRONMENT = os.getenv('DJANGO_ENV', 'development')
+
+if ENVIRONMENT == 'development':
     MEDIA_ROOT = BASE_DIR / 'media'
 else:
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
