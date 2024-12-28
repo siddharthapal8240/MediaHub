@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False').lower() == 'True'
 
-ALLOWED_HOSTS = ['mediahub-itil.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -39,8 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tweet',
-    'cloudinary',
-    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -130,17 +128,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
-
-ENVIRONMENT = os.getenv('DJANGO_ENV', 'development')
-
-if ENVIRONMENT == 'development':
-    MEDIA_ROOT = BASE_DIR / 'media'
-else:
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-    CLOUDINARY_STORAGE = {
-        'CLOUDINARY_URL': env('CLOUDINARY_URL')  #os.environ.get
-    }
-    
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] 
