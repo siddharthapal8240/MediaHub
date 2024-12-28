@@ -8,6 +8,7 @@ django-cloudinary-storage==0.3.0
 gunicorn==23.0.0
 idna==3.10
 packaging==24.2
+psycopg2-binary==2.9.10
 requests==2.32.3
 six==1.17.0
 sqlparse==0.5.3
