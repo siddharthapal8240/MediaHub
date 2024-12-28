@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import dj_database_url
 from pathlib import Path
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +29,10 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False').lower() == 'True'
 
+
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -39,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tweet',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -85,6 +93,20 @@ DATABASES = {
 database_url = os.environ.get('DATABASE_URL')
 DATABASES['default'] = dj_database_url.parse(database_url)
 
+
+
+CLOUDINARY_STORAGE = {
+    'Cloud_name': os.environ.get('CLOUD_NAME'),
+    'Api_key': os.environ.get('API_KEY'),
+    'Api_secret': os.environ.get('API_SECRET'),
+}
+
+cloudinary.config(
+    cloud_name=CLOUDINARY_STORAGE['Cloud_name'],
+    api_key=CLOUDINARY_STORAGE['Api_key'],
+    api_secret=CLOUDINARY_STORAGE['Api_secret']
+)
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
