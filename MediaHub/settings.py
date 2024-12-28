@@ -85,8 +85,6 @@ DATABASES = {
 database_url = os.environ.get('DATABASE_URL')
 DATABASES['default'] = dj_database_url.parse(database_url)
 
-#postgresql://mediahub_rotm_user:KizjATCMjc5MLWG7sSWiHU6BIFoMVsX9@dpg-ctnh0ji3esus73a1teng-a.oregon-postgres.render.com/mediahub_rotm
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
