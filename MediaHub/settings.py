@@ -28,6 +28,8 @@ DEBUG = os.environ.get('DEBUG', 'False').lower() == 'True'
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
+CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS").split(" ")
+
 
 # Application definition
 
