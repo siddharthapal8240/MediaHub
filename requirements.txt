@@ -1,9 +1,8 @@
-asgiref==3.8.1
-dj-database-url==2.3.0
-Django==5.1.4
-gunicorn==23.0.0
-packaging==24.2
-pillow==11.0.0
-psycopg2-binary==2.9.10
-sqlparse==0.5.3
-typing_extensions==4.12.2
+certifi==2024.12.14
+charset-normalizer==3.4.1
+cloudinary==1.41.0
+django-cloudinary-storage==0.3.0
+idna==3.10
+requests==2.32.3
+six==1.17.0
+urllib3==2.3.0
