@@ -35,14 +35,17 @@ MediaHub
 
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">{{ tweet.user.username }}</h5>
+        
+          <!-- Truncated Tweet Text -->
           <p class="card-text" style="height: 50px; overflow: hidden;" id="tweet-text-{{ tweet.id }}">
-            {{ tweet.text|truncatechars:100 }} 
+            {{ tweet.text|truncatechars:100 }}
             {% if tweet.text|length > 100 %}
               <span class="show-more" id="show-more-{{ tweet.id }}" style="cursor: pointer; color: #007bff;">... Show more</span>
             {% endif %}
           </p>
-          <!-- Hidden Full Tweet Text -->
-  <div id="tweet-text-full-{{ tweet.id }}" style="display: none;">{{ tweet.text }}</div>
+        
+          <!-- Full tweet text stored in hidden div -->
+          <div id="tweet-text-full-{{ tweet.id }}" style="display: none;">{{ tweet.text }}</div>
 
 
           <!-- View Full Button -->
@@ -117,6 +120,18 @@ MediaHub
     {% endfor %}
   </div>
 </div>
+
+
+<style>
+  .show-more {
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: underline;
+  }
+  .show-more:hover {
+    color: #0056b3;
+  }
+</style>
 
 <script>
   function toggleImageSize(tweetId) {
