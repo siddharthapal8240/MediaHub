@@ -127,6 +127,12 @@ MediaHub
 
 
 <style>
+  /* Ensure that the text is displayed properly */
+  .card-text {
+    max-height: 150px; /* Set a max-height for the truncated text */
+    overflow: hidden;
+    position: relative;
+  }
   .show-more {
     cursor: pointer;
     color: #007bff;
