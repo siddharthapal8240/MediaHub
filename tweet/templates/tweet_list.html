@@ -35,12 +35,15 @@ MediaHub
 
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">{{ tweet.user.username }}</h5>
-          <p class="card-text text-truncate" style="height: 50px; overflow: hidden;" id="tweet-text-{{ tweet.id }}">
-            {{ tweet.text|truncatechars:100 }}
+          <p class="card-text" style="height: 50px; overflow: hidden;" id="tweet-text-{{ tweet.id }}">
+            {{ tweet.text|truncatechars:100 }} 
             {% if tweet.text|length > 100 %}
               <span class="show-more" id="show-more-{{ tweet.id }}" style="cursor: pointer; color: #007bff;">... Show more</span>
             {% endif %}
-          </p>          
+          </p>
+          <!-- Hidden Full Tweet Text -->
+  <div id="tweet-text-full-{{ tweet.id }}" style="display: none;">{{ tweet.text }}</div>
+
 
           <!-- View Full Button -->
           {% if tweet.photo and tweet.photo.url %}
@@ -131,7 +134,6 @@ MediaHub
     }
   }
 
-    // Function to toggle the full tweet text visibility
   document.addEventListener("DOMContentLoaded", function () {
     const showMoreElements = document.querySelectorAll(".show-more");
 
@@ -139,7 +141,7 @@ MediaHub
       element.addEventListener("click", function () {
         const tweetId = this.id.split('-')[2];  // Get tweet ID from element ID
         const tweetTextElement = document.getElementById("tweet-text-" + tweetId);
-        const fullText = "{{ tweet.text|escapejs }}";  // Full text of the tweet (escaped)
+        const fullText = document.getElementById("tweet-text-full-" + tweetId).textContent;  // Full text of the tweet
 
         tweetTextElement.innerHTML = fullText;  // Replace truncated text with full text
         this.style.display = "none";  // Hide the "Show more" link
