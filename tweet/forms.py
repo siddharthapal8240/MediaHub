@@ -21,12 +21,12 @@ class UserRegistrationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['password1'].widget = forms.PasswordInput(attrs={
-            'placeholder': 'Enter your password',
+            'placeholder': 'e.g., Password@123, Sid@7439, Sid#987',
             'class': 'form-control',
-            'style': 'background-color: white; color: black;',
+            'style': 'background-color: white; color: black; font:bold;',
         })
         self.fields['password2'].widget = forms.PasswordInput(attrs={
             'placeholder': 'Confirm your password',
             'class': 'form-control',
-            'style': 'background-color: white; color: black;',
+            'style': 'background-color: white; color: black; font:bold;',
         })
