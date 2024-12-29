@@ -37,10 +37,14 @@ MediaHub
           <h5 class="card-title">{{ tweet.user.username }}</h5>
         
           <!-- Truncated Tweet Text -->
-          <p class="card-text" style="height: 50px; overflow: hidden;" id="tweet-text-{{ tweet.id }}">
-            {{ tweet.text|truncatechars:100 }}
-            {% if tweet.text|length > 10 %}
-              <span class="show-more" id="show-more-{{ tweet.id }}" style="cursor: pointer; color: #007bff;">... Show more</span>
+          <p class="card-text" id="tweet-text-{{ tweet.id }}">
+            {% if tweet.text|length > 100 %}
+              {{ tweet.text|truncatechars:100 }} 
+              <span class="show-more" style="cursor: pointer; color: #007bff;">... Show more</span>
+              <!-- Full text in a hidden div -->
+              <span id="tweet-text-full-{{ tweet.id }}" style="display: none;">{{ tweet.text }}</span>
+            {% else %}
+              {{ tweet.text }}
             {% endif %}
           </p>
         
@@ -150,16 +154,17 @@ MediaHub
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    // Add event listeners to "Show more" links
     const showMoreElements = document.querySelectorAll(".show-more");
 
-    showMoreElements.forEach((element) => {
+    showMoreElements.forEach(function (element) {
       element.addEventListener("click", function () {
-        const tweetId = this.id.split('-')[2];  // Get tweet ID from element ID
-        const tweetTextElement = document.getElementById("tweet-text-" + tweetId);
-        const fullText = document.getElementById("tweet-text-full-" + tweetId).textContent;  // Full text of the tweet
+        const tweetId = this.closest('.card').querySelector('.card-body').getAttribute('id').split('-')[2];  // Get tweet ID
+        const tweetTextElement = document.getElementById('tweet-text-' + tweetId); // Truncated tweet text
+        const fullText = document.getElementById('tweet-text-full-' + tweetId).textContent; // Full tweet text
 
-        tweetTextElement.innerHTML = fullText;  // Replace truncated text with full text
-        this.style.display = "none";  // Hide the "Show more" link
+        tweetTextElement.innerHTML = fullText;  // Update truncated text with full text
+        this.style.display = "none";  // Hide "Show more" button after it's clicked
       });
     });
   });
