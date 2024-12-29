@@ -37,17 +37,10 @@ MediaHub
           <h5 class="card-title">{{ tweet.user.username }}</h5>
         
           <!-- Truncated Tweet Text -->
-          <p class="card-text" id="tweet-text-{{ tweet.id }}">
-            {% if tweet.text|length > 100 %}
-              {{ tweet.text|truncatechars:100 }} 
-              <span class="show-more" style="cursor: pointer; color: #007bff;">... Show more</span>
-              <!-- Full text in a hidden span -->
-              <span id="tweet-text-full-{{ tweet.id }}" style="display: none;">{{ tweet.text }}</span>
-            {% else %}
-              {{ tweet.text }}
-            {% endif %}
+          <p class="card-text">
+            {{ tweet.text|slice:":200" }}{% if tweet.text|length > 200 %}...{% endif %}
           </p>
-
+        
           <!-- View Full Button -->
           {% if tweet.photo and tweet.photo.url %}
           <button class="btn btn-info btn-sm mt-0 mb-3" id="view-full-btn-{{ tweet.id }}" onclick="toggleImageSize('{{ tweet.id }}')">View Full</button>
@@ -73,17 +66,18 @@ MediaHub
           <div class="mt-3">
             <h6 class="font-weight-bold">Comments:</h6>
 
-            <!-- Show Comments or "No Comments Yet" -->
-            <div id="comments-{{ tweet.id }}">
-              {% if tweet.comment_set.count == 0 %}
-              <p class="text-muted">No comments yet.</p>
-              {% else %}
-                {% for comment in tweet.comment_set.all|slice:":1" %}
-                <div class="comment">
-                  <p><strong>{{ comment.user.username }}:</strong> {{ comment.content }}</p>
-                </div>
-                {% endfor %}
-              {% endif %}
+            <!-- Display No Comments Yet if there are no comments -->
+            <div id="comments-{{ tweet.id }}" class="d-flex justify-content-center align-items-center" style="height: 50px; color: #6c757d; display: {% if tweet.comment_set.count == 0 %}block{% else %}none{% endif %};">
+              <p>No comments yet</p>
+            </div>
+
+            <!-- Show first 1 comment -->
+            <div id="comments-{{ tweet.id }}" class="d-none">
+              {% for comment in tweet.comment_set.all|slice:":1" %}
+              <div class="comment">
+                <p><strong>{{ comment.user.username }}:</strong> {{ comment.content }}</p>
+              </div>
+              {% endfor %}
             </div>
 
             <!-- Filter Comments Section -->
@@ -132,13 +126,12 @@ MediaHub
     overflow: hidden;
     position: relative;
   }
-  .show-more {
-    cursor: pointer;
-    color: #007bff;
-    text-decoration: underline;
-  }
-  .show-more:hover {
-    color: #0056b3;
+
+  /* Style for "No comments yet" text */
+  .no-comments {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #6c757d;
   }
 </style>
 
@@ -157,25 +150,6 @@ MediaHub
       button.innerText = 'View Full'; 
     }
   }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    // Add event listeners to "Show more" links
-    const showMoreElements = document.querySelectorAll(".show-more");
-
-    showMoreElements.forEach(function (element) {
-      element.addEventListener("click", function () {
-        const tweetId = this.closest('.card').querySelector('.card-body').getAttribute('id').split('-')[2];  // Get tweet ID
-        const tweetTextElement = document.getElementById('tweet-text-' + tweetId); // Truncated tweet text
-        const fullTextElement = document.getElementById('tweet-text-full-' + tweetId); // Full tweet text
-
-        // Replace the truncated text with the full text
-        tweetTextElement.innerHTML = fullTextElement.innerHTML;
-
-        // Hide "Show more" after it's clicked
-        this.style.display = "none"; 
-      });
-    });
-  });
 
   function expandComments(tweetId) {
     const imageContainer = document.getElementById('image-container-' + tweetId);
@@ -230,5 +204,4 @@ MediaHub
     allComments.forEach(comment => commentsSection.appendChild(comment));
   }
 </script>
-
 {% endblock %}
