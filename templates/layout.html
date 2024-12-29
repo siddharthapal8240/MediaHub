@@ -37,7 +37,7 @@
         </ul>
 
 
-        <a href="{% url 'tweet_list'%}" class="btn btn-primary mx-2">Tweet Home</a>
+        <a href="{% url 'tweet_list'%}" class="btn btn-primary mx-2">Home</a>
         
         {% if user.is_authenticated %}
         <form method="post" action="{% url 'logout' %}" class="d-inline">
