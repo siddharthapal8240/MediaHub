@@ -72,7 +72,8 @@ MediaHub
               <p>No comments yet</p>
             </div>
             {% else %}
-            <div id="comments-{{ tweet.id }}" class="d-none">
+            <!-- Display the first comment immediately -->
+            <div id="comments-{{ tweet.id }}" class="mb-3">
               {% for comment in tweet.comment_set.all|slice:":1" %}
               <div class="comment">
                 <p><strong>{{ comment.user.username }}:</strong> {{ comment.content }}</p>
