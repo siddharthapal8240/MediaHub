@@ -5,7 +5,7 @@ Welcome to **MediaHub**, a dynamic and interactive social media platform built w
 
 ---
 
-## Screenshots
+## ⌞ ⌝ Screenshots ⌞ ⌝
 
 Here are representations of MediaHub across various devices:
 
@@ -14,7 +14,7 @@ Here are representations of MediaHub across various devices:
 ---
 
 
-## 🚀 Features
+## 💡 Features
 1. **User Authentication**: 
    - Register, login, and logout functionalities.
 2. **Tweet Management**: 
