@@ -1,15 +1,7 @@
 
-# MediaHub
+# Project Name: MediaHub
 
-MediaHub is a dynamic social media platform that allows users to create, view, and interact with tweets in an engaging way. The platform is built using Django for the backend and HTML, CSS, and Bootstrap for the frontend. This repository contains the source code for the MediaHub project.
-
----
-
-## Features
-
-- Create and edit tweets with images.
-- View, like, and comment on tweets in real-time.
-- Responsive design optimized for desktop, tablet, and mobile screens.
+Welcome to **MediaHub**, a dynamic and interactive social media platform built with Django. MediaHub allows users to post, comment, like, and manage their tweets seamlessly.
 
 ---
 
@@ -17,7 +9,59 @@ MediaHub is a dynamic social media platform that allows users to create, view, a
 
 Here are representations of MediaHub across various devices:
 
-![MediaHub Screenshots](final_responsive_project.png)
+![MediaHub Screen Representations](/final_responsive_project.png)
+
+---
+
+
+## 🚀 Features
+1. **User Authentication**: 
+   - Register, login, and logout functionalities.
+2. **Tweet Management**: 
+   - Users can create, edit, and delete their tweets.
+   - Character limit of 200 characters for tweet text.
+3. **Like Functionality**: 
+   - Users can like tweets, and the like count is displayed dynamically.
+4. **Comments Section**: 
+   - Users can add comments to tweets.
+   - A single comment is displayed by default, with an option to view or filter all comments.
+   - If no comments exist, a styled "No comments yet" message is displayed.
+5. **Search Bar**: 
+   - Allows users to search for tweets.
+6. **Responsive Design**:
+   - Mobile-friendly and optimized for various screen sizes.
+
+---
+
+## 🛠️ Technologies Used
+- **Frontend**: HTML, CSS, Bootstrap
+- **Backend**: Django
+- **Database**: Postgresql
+- **Media Handling**: Cloudinary
+- **Icons**: FontAwesome
+
+---
+
+## 📂 Project Structure
+```
+mediahub/
+├── templates/
+│   ├── layout.html
+│   ├── index.html
+│   ├── tweet_create.html
+│   ├── tweet_edit.html
+├── static/
+│   ├── css/
+│   ├── js/
+│   ├── images/
+├── mediahub/
+│   ├── views.py
+│   ├── forms.py
+│   ├── models.py
+│   ├── urls.py
+│   ├── settings.py
+└── README.md
+```
 
 ---
 
@@ -96,6 +140,4 @@ For any queries or suggestions, feel free to contact:
 
 ---
 
-## License
-
-This project is licensed under the MIT License.
+Developed with ❤️ by Siddhartha Pal
