@@ -44,23 +44,45 @@ Here are representations of MediaHub across various devices:
 
 ## 📂 Project Structure
 ```
-mediahub/
-├── templates/
-│   ├── layout.html
-│   ├── index.html
-│   ├── tweet_create.html
-│   ├── tweet_edit.html
+MediaHub/
+├── MediaHub/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+│   ├── templates/
+│       ├── layout.html
+│       ├── registration/
+│           ├── logged_out.html
+│           ├── login.html
+│           ├── register.html
+├── tweet/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── forms.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   ├── views.py
+│   ├── migrations/
+│   ├── templates/
+│       ├── index.html
+│       ├── tweet_confirm_delete.html
+│       ├── tweet_form.html
+│       ├── tweet_list.html
 ├── static/
 │   ├── css/
 │   ├── js/
 │   ├── images/
-├── mediahub/
-│   ├── views.py
-│   ├── forms.py
-│   ├── models.py
-│   ├── urls.py
-│   ├── settings.py
-└── README.md
+├── .gitignore
+├── db.sqlite3
+├── final_responsive_project.png
+├── manage.py
+├── README.md
+├── requirements.txt
+
 ```
 
 ---
@@ -112,6 +134,7 @@ Follow these steps to set up MediaHub locally:
 5. Run database migrations:
 
    ```bash
+   python manage.py makemigrations
    python manage.py migrate
    ```
 
