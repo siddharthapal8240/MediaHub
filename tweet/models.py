@@ -6,7 +6,6 @@ from cloudinary.models import CloudinaryField
 class Tweet(models.Model):
     text = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    # photo = models.ImageField(upload_to='tweets/', null=True, blank=True)
     photo = CloudinaryField('photo', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
