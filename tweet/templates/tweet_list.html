@@ -39,7 +39,7 @@ MediaHub
           <!-- Truncated Tweet Text -->
           <p class="card-text" id="tweet-text-{{ tweet.id }}">
             {% if tweet.text|length > 100 %}
-              {{ tweet.text|truncatechars:100 }} 
+              {{ tweet.text|truncatechars:1000 }} 
               <span class="show-more" style="cursor: pointer; color: #007bff;">... Show more</span>
               <!-- Full text in a hidden span -->
               <span id="tweet-text-full-{{ tweet.id }}" style="display: none;">{{ tweet.text }}</span>
