@@ -1,22 +1,25 @@
-{% extends "layout.html" %}
-
-{% block title %}
-MediaHub
-{% endblock %}
-
-{% block content %}
+{% extends "layout.html" %} {% block title %} MediaHub {% endblock %} {% block
+content %}
 <div class="container mt-5">
   <h1 class="text-center mt-4 mb-5">Welcome to MediaHub</h1>
 
   <!-- Search Bar -->
   <form method="get" class="mb-4">
     <div class="input-group">
-      <input type="text" name="q" class="form-control" placeholder="Search tweets..." value="{{ request.GET.q|default_if_none:'' }}">
+      <input
+        type="text"
+        name="q"
+        class="form-control"
+        placeholder="Search tweets..."
+        value="{{ request.GET.q|default_if_none:'' }}"
+      />
       <button class="btn btn-outline-primary" type="submit">Search</button>
     </div>
   </form>
 
-  <a class="btn btn-primary mb-4" href="{% url 'tweet_create' %}">Create a tweet</a>
+  <a class="btn btn-primary mb-4" href="{% url 'tweet_create' %}"
+    >Create a tweet</a
+  >
 
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
     {% for tweet in tweets %}
@@ -25,9 +28,18 @@ MediaHub
         <!-- Image -->
         <div class="image-container" id="image-container-{{ tweet.id }}">
           {% if tweet.photo and tweet.photo.url %}
-          <img src="{{ tweet.photo.url }}" class="card-img-top" alt="Tweet Image" id="tweet-img-{{ tweet.id }}" style="object-fit: cover; height: 200px;">
+          <img
+            src="{{ tweet.photo.url }}"
+            class="card-img-top"
+            alt="Tweet Image"
+            id="tweet-img-{{ tweet.id }}"
+            style="object-fit: cover; height: 200px"
+          />
           {% else %}
-          <div class="d-flex justify-content-center align-items-center bg-light" style="height: 200px; color: #6c757d;">
+          <div
+            class="d-flex justify-content-center align-items-center bg-light"
+            style="height: 200px; color: #6c757d"
+          >
             No Image Available
           </div>
           {% endif %}
@@ -35,27 +47,64 @@ MediaHub
 
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">{{ tweet.user.username }}</h5>
-          <p class="card-text text-truncate" style="height: 50px; overflow: hidden;">{{ tweet.text }}</p>
+          <p
+            class="card-text text-truncate"
+            style="height: 50px; overflow: hidden"
+            id="tweet-text-{{ tweet.id }}"
+          >
+            {{ tweet.text|truncatechars:100 }} {% if tweet.text|length > 100 %}
+            <span
+              class="show-more"
+              id="show-more-{{ tweet.id }}"
+              style="cursor: pointer; color: #007bff"
+              >... Show more</span
+            >
+            {% endif %}
+          </p>
 
           <!-- View Full Button -->
           {% if tweet.photo and tweet.photo.url %}
-          <button class="btn btn-info btn-sm mt-0 mb-3" id="view-full-btn-{{ tweet.id }}" onclick="toggleImageSize('{{ tweet.id }}')">View Full</button>
+          <button
+            class="btn btn-info btn-sm mt-0 mb-3"
+            id="view-full-btn-{{ tweet.id }}"
+            onclick="toggleImageSize('{{ tweet.id }}')"
+          >
+            View Full
+          </button>
           {% endif %}
 
-          <form method="post" action="{% url 'like_tweet' tweet.id %}" class="d-inline">
+          <form
+            method="post"
+            action="{% url 'like_tweet' tweet.id %}"
+            class="d-inline"
+          >
             {% csrf_token %}
             <button class="btn btn-outline-danger btn-sm mt-2">
-              <i class="fa fa-heart"></i> <!-- FontAwesome like icon -->
-              {{ tweet.likes_count }} <!-- Display the like count -->
+              <i class="fa fa-heart"></i>
+              <!-- FontAwesome like icon -->
+              {{ tweet.likes_count }}
+              <!-- Display the like count -->
             </button>
           </form>
 
           <!-- Comment Form -->
-          <form method="post" action="{% url 'comment_tweet' tweet.id %}" class="mt-3">
+          <form
+            method="post"
+            action="{% url 'comment_tweet' tweet.id %}"
+            class="mt-3"
+          >
             {% csrf_token %}
             <div class="input-group">
-              <input type="text" name="content" class="form-control" placeholder="Write a comment..." required>
-              <button class="btn btn-outline-primary" type="submit">Comment</button>
+              <input
+                type="text"
+                name="content"
+                class="form-control"
+                placeholder="Write a comment..."
+                required
+              />
+              <button class="btn btn-outline-primary" type="submit">
+                Comment
+              </button>
             </div>
           </form>
 
@@ -66,31 +115,50 @@ MediaHub
             <div id="comments-{{ tweet.id }}">
               {% for comment in tweet.comment_set.all|slice:":1" %}
               <div class="comment">
-                <p><strong>{{ comment.user.username }}:</strong> {{ comment.content }}</p>
+                <p>
+                  <strong>{{ comment.user.username }}:</strong> {{
+                  comment.content }}
+                </p>
               </div>
               {% endfor %}
             </div>
 
             <!-- Filter Comments Section -->
             {% if tweet.comment_set.count > 1 %}
-            <button class="btn btn-outline-secondary btn-sm mt-2 mb-3 d-block mx-auto" id="filter-btn-{{ tweet.id }}" onclick="expandComments({{ tweet.id }})">
+            <button
+              class="btn btn-outline-secondary btn-sm mt-2 mb-3 d-block mx-auto"
+              id="filter-btn-{{ tweet.id }}"
+              onclick="expandComments({{ tweet.id }})"
+            >
               <i class="fa fa-filter"></i> Filter Comments
             </button>
             <div id="more-comments-{{ tweet.id }}" class="d-none mt-3">
-              <select class="form-select form-select-sm mb-3" onchange="filterComments({{ tweet.id }}, this.value)">
+              <select
+                class="form-select form-select-sm mb-3"
+                onchange="filterComments({{ tweet.id }}, this.value)"
+              >
                 <option value="all">All Comments</option>
                 <option value="newest">Newest Comments</option>
               </select>
 
               <div class="comments-section">
                 {% for comment in tweet.comment_set.all %}
-                <div class="comment" data-timestamp="{{ comment.created_at|date:'c' }}">
-                  <p><strong>{{ comment.user.username }}:</strong> {{ comment.content }}</p>
+                <div
+                  class="comment"
+                  data-timestamp="{{ comment.created_at|date:'c' }}"
+                >
+                  <p>
+                    <strong>{{ comment.user.username }}:</strong> {{
+                    comment.content }}
+                  </p>
                 </div>
                 {% endfor %}
               </div>
 
-              <button class="btn btn-outline-danger btn-sm mt-3 mb-3 d-block mx-auto" onclick="collapseComments({{ tweet.id }})">
+              <button
+                class="btn btn-outline-danger btn-sm mt-3 mb-3 d-block mx-auto"
+                onclick="collapseComments({{ tweet.id }})"
+              >
                 <i class="fa fa-times"></i> Close
               </button>
             </div>
@@ -99,8 +167,16 @@ MediaHub
 
           {% if tweet.user == user %}
           <div class="mt-auto d-flex justify-content-center gap-3">
-            <a href="{% url 'tweet_edit' tweet.id %}" class="btn btn-primary btn-sm">Edit</a>
-            <a href="{% url 'tweet_delete' tweet.id %}" class="btn btn-danger btn-sm">Delete</a>
+            <a
+              href="{% url 'tweet_edit' tweet.id %}"
+              class="btn btn-primary btn-sm"
+              >Edit</a
+            >
+            <a
+              href="{% url 'tweet_delete' tweet.id %}"
+              class="btn btn-danger btn-sm"
+              >Delete</a
+            >
           </div>
           {% endif %}
         </div>
@@ -116,46 +192,62 @@ MediaHub
     const button = document.getElementById('view-full-btn-' + tweetId);
 
     if (img.style.height === '200px') {
-      img.style.height = 'auto'; 
-      img.style.objectFit = 'contain'; 
-      button.innerText = 'Back'; 
+      img.style.height = 'auto';
+      img.style.objectFit = 'contain';
+      button.innerText = 'Back';
     } else {
-      img.style.height = '200px'; 
-      img.style.objectFit = 'cover'; 
-      button.innerText = 'View Full'; 
+      img.style.height = '200px';
+      img.style.objectFit = 'cover';
+      button.innerText = 'View Full';
     }
   }
+
+    // Function to toggle the full tweet text visibility
+    document.addEventListener("DOMContentLoaded", function () {
+      const showMoreElements = document.querySelectorAll(".show-more");
+
+      showMoreElements.forEach((element) => {
+        element.addEventListener("click", function () {
+          const tweetId = this.id.split('-')[2];  // Get tweet ID from element ID
+          const tweetTextElement = document.getElementById("tweet-text-" + tweetId);
+          const fullText = {{ tweet.text|escapejs }};  // Full text of the tweet
+
+          tweetTextElement.innerHTML = fullText;  // Replace truncated text with full text
+          this.style.display = "none";  // Hide the "Show more" link
+        });
+      });
+    });
 
   function expandComments(tweetId) {
     const imageContainer = document.getElementById('image-container-' + tweetId);
     const filterBtn = document.getElementById('filter-btn-' + tweetId);
     const moreComments = document.getElementById('more-comments-' + tweetId);
-    const viewFullBtn = document.getElementById('view-full-btn-' + tweetId); 
+    const viewFullBtn = document.getElementById('view-full-btn-' + tweetId);
 
-    imageContainer.style.height = '150px'; 
+    imageContainer.style.height = '150px';
     imageContainer.style.objectFit = 'cover';
     filterBtn.style.display = 'none';
-    moreComments.classList.remove('d-none'); 
-    viewFullBtn.style.display = 'none'; 
+    moreComments.classList.remove('d-none');
+    viewFullBtn.style.display = 'none';
   }
 
   function collapseComments(tweetId) {
     const imageContainer = document.getElementById('image-container-' + tweetId);
     const filterBtn = document.getElementById('filter-btn-' + tweetId);
     const moreComments = document.getElementById('more-comments-' + tweetId);
-    const viewFullBtn = document.getElementById('view-full-btn-' + tweetId); 
+    const viewFullBtn = document.getElementById('view-full-btn-' + tweetId);
 
-    imageContainer.style.height = '200px'; 
-    filterBtn.style.display = 'inline-block'; 
-    moreComments.classList.add('d-none'); 
-    viewFullBtn.style.display = 'inline-block'; 
+    imageContainer.style.height = '200px';
+    filterBtn.style.display = 'inline-block';
+    moreComments.classList.add('d-none');
+    viewFullBtn.style.display = 'inline-block';
   }
 
   function filterComments(tweetId, filterType) {
     const commentsSection = document
       .getElementById('more-comments-' + tweetId)
       .querySelector('.comments-section');
-    
+
     const allComments = Array.from(commentsSection.children);
 
     if (filterType === 'newest') {
