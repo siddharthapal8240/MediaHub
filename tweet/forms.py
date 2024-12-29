@@ -25,7 +25,7 @@ class UserRegistrationForm(UserCreationForm):
             'class': 'form-control',
             'style': 'background-color: white; color: black; font-bold;',
         })
-        self.fields['password2'].widget = forms.PasswordInput(attrs={;
+        self.fields['password2'].widget = forms.PasswordInput(attrs={
             'placeholder': 'Confirm your password',
             'class': 'form-control',
             'style': 'background-color: white; color: black; font-bold;',
