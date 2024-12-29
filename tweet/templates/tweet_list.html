@@ -39,7 +39,7 @@ MediaHub
           <!-- Truncated Tweet Text -->
           <p class="card-text" style="height: 50px; overflow: hidden;" id="tweet-text-{{ tweet.id }}">
             {{ tweet.text|truncatechars:100 }}
-            {% if tweet.text|length > 100 %}
+            {% if tweet.text|length > 10 %}
               <span class="show-more" id="show-more-{{ tweet.id }}" style="cursor: pointer; color: #007bff;">... Show more</span>
             {% endif %}
           </p>
