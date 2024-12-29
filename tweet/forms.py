@@ -8,7 +8,7 @@ class TweetForm(forms.ModelForm):
         model = Tweet
         fields = ['text', 'photo']
 
-    def __init__(self, *args, **kwa rgs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['photo'].widget = forms.FileInput()
 
@@ -23,10 +23,10 @@ class UserRegistrationForm(UserCreationForm):
         self.fields['password1'].widget = forms.PasswordInput(attrs={
             'placeholder': 'Enter your password',
             'class': 'form-control',
-            'style': 'background-color: #ffffff; black;',
+            'style': 'background-color: white; color: black;',
         })
         self.fields['password2'].widget = forms.PasswordInput(attrs={
             'placeholder': 'Confirm your password',
             'class': 'form-control',
-            'style': 'background-color: #ffffff;  color: black;',
+            'style': 'background-color: white; color: black;',
         })
