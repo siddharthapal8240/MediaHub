@@ -67,11 +67,11 @@ MediaHub
             <h6 class="font-weight-bold">Comments:</h6>
 
             <!-- Display No Comments Yet if there are no comments -->
-            <div id="comments-{{ tweet.id }}" class="d-flex justify-content-center align-items-center" style="height: 50px; color: #6c757d; display: {% if tweet.comment_set.count == 0 %}block{% else %}none{% endif %};">
+            {% if tweet.comment_set.count == 0 %}
+            <div id="comments-{{ tweet.id }}" class="d-flex justify-content-center align-items-center" style="height: 50px; color: #6c757d;">
               <p>No comments yet</p>
             </div>
-
-            <!-- Show first 1 comment -->
+            {% else %}
             <div id="comments-{{ tweet.id }}" class="d-none">
               {% for comment in tweet.comment_set.all|slice:":1" %}
               <div class="comment">
@@ -79,6 +79,7 @@ MediaHub
               </div>
               {% endfor %}
             </div>
+            {% endif %}
 
             <!-- Filter Comments Section -->
             {% if tweet.comment_set.count > 1 %}
