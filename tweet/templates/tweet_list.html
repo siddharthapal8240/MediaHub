@@ -188,87 +188,93 @@ content %}
 
 <script>
   function toggleImageSize(tweetId) {
-    const img = document.getElementById('tweet-img-' + tweetId);
-    const button = document.getElementById('view-full-btn-' + tweetId);
+    const img = document.getElementById("tweet-img-" + tweetId);
+    const button = document.getElementById("view-full-btn-" + tweetId);
 
-    if (img.style.height === '200px') {
-      img.style.height = 'auto';
-      img.style.objectFit = 'contain';
-      button.innerText = 'Back';
+    if (img.style.height === "200px") {
+      img.style.height = "auto";
+      img.style.objectFit = "contain";
+      button.innerText = "Back";
     } else {
-      img.style.height = '200px';
-      img.style.objectFit = 'cover';
-      button.innerText = 'View Full';
+      img.style.height = "200px";
+      img.style.objectFit = "cover";
+      button.innerText = "View Full";
     }
   }
 
-    // Function to toggle the full tweet text visibility
-    document.addEventListener("DOMContentLoaded", function () {
-      const showMoreElements = document.querySelectorAll(".show-more");
+  // Function to toggle the full tweet text visibility
+  document.addEventListener("DOMContentLoaded", function () {
+    const showMoreElements = document.querySelectorAll(".show-more");
 
-      showMoreElements.forEach((element) => {
-        element.addEventListener("click", function () {
-          const tweetId = this.id.split('-')[2];  // Get tweet ID from element ID
-          const tweetTextElement = document.getElementById("tweet-text-" + tweetId);
-          const fullText = {{ tweet.text|escapejs }};  // Full text of the tweet
+    showMoreElements.forEach((element) => {
+      element.addEventListener("click", function () {
+        const tweetId = this.id.split("-")[2]; // Get tweet ID from element ID
+        const tweetTextElement = document.getElementById(
+          "tweet-text-" + tweetId
+        );
+        const fullText = "{{ tweet.text|escapejs }}"; // Full text of the tweet (escaped)
 
-          tweetTextElement.innerHTML = fullText;  // Replace truncated text with full text
-          this.style.display = "none";  // Hide the "Show more" link
-        });
+        tweetTextElement.innerHTML = fullText; // Replace truncated text with full text
+        this.style.display = "none"; // Hide the "Show more" link
       });
     });
+  });
 
   function expandComments(tweetId) {
-    const imageContainer = document.getElementById('image-container-' + tweetId);
-    const filterBtn = document.getElementById('filter-btn-' + tweetId);
-    const moreComments = document.getElementById('more-comments-' + tweetId);
-    const viewFullBtn = document.getElementById('view-full-btn-' + tweetId);
+    const imageContainer = document.getElementById(
+      "image-container-" + tweetId
+    );
+    const filterBtn = document.getElementById("filter-btn-" + tweetId);
+    const moreComments = document.getElementById("more-comments-" + tweetId);
+    const viewFullBtn = document.getElementById("view-full-btn-" + tweetId);
 
-    imageContainer.style.height = '150px';
-    imageContainer.style.objectFit = 'cover';
-    filterBtn.style.display = 'none';
-    moreComments.classList.remove('d-none');
-    viewFullBtn.style.display = 'none';
+    imageContainer.style.height = "150px";
+    imageContainer.style.objectFit = "cover";
+    filterBtn.style.display = "none";
+    moreComments.classList.remove("d-none");
+    viewFullBtn.style.display = "none";
   }
 
   function collapseComments(tweetId) {
-    const imageContainer = document.getElementById('image-container-' + tweetId);
-    const filterBtn = document.getElementById('filter-btn-' + tweetId);
-    const moreComments = document.getElementById('more-comments-' + tweetId);
-    const viewFullBtn = document.getElementById('view-full-btn-' + tweetId);
+    const imageContainer = document.getElementById(
+      "image-container-" + tweetId
+    );
+    const filterBtn = document.getElementById("filter-btn-" + tweetId);
+    const moreComments = document.getElementById("more-comments-" + tweetId);
+    const viewFullBtn = document.getElementById("view-full-btn-" + tweetId);
 
-    imageContainer.style.height = '200px';
-    filterBtn.style.display = 'inline-block';
-    moreComments.classList.add('d-none');
-    viewFullBtn.style.display = 'inline-block';
+    imageContainer.style.height = "200px";
+    filterBtn.style.display = "inline-block";
+    moreComments.classList.add("d-none");
+    viewFullBtn.style.display = "inline-block";
   }
 
   function filterComments(tweetId, filterType) {
     const commentsSection = document
-      .getElementById('more-comments-' + tweetId)
-      .querySelector('.comments-section');
+      .getElementById("more-comments-" + tweetId)
+      .querySelector(".comments-section");
 
     const allComments = Array.from(commentsSection.children);
 
-    if (filterType === 'newest') {
+    if (filterType === "newest") {
       // Sort comments by timestamp in descending order (Newest first)
       allComments.sort((a, b) => {
-        const aTimestamp = new Date(a.getAttribute('data-timestamp')).getTime();
-        const bTimestamp = new Date(b.getAttribute('data-timestamp')).getTime();
+        const aTimestamp = new Date(a.getAttribute("data-timestamp")).getTime();
+        const bTimestamp = new Date(b.getAttribute("data-timestamp")).getTime();
         return bTimestamp - aTimestamp;
       });
-    } else if (filterType === 'all') {
+    } else if (filterType === "all") {
       // Show all comments
       allComments.sort((a, b) => {
-        const aTimestamp = new Date(a.getAttribute('data-timestamp')).getTime();
-        const bTimestamp = new Date(b.getAttribute('data-timestamp')).getTime();
+        const aTimestamp = new Date(a.getAttribute("data-timestamp")).getTime();
+        const bTimestamp = new Date(b.getAttribute("data-timestamp")).getTime();
         return aTimestamp - bTimestamp;
       });
     }
 
     // Clear current comments and append the sorted comments
-    commentsSection.innerHTML = '';
-    allComments.forEach(comment => commentsSection.appendChild(comment));
+    commentsSection.innerHTML = "";
+    allComments.forEach((comment) => commentsSection.appendChild(comment));
   }
 </script>
 {% endblock %}
