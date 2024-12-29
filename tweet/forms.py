@@ -23,10 +23,10 @@ class UserRegistrationForm(UserCreationForm):
         self.fields['password1'].widget = forms.PasswordInput(attrs={
             'placeholder': 'e.g., Sid@1234,Sid#9876,7463@BGF...',
             'class': 'form-control',
-            'style': 'background-color: white; color: #333333; font-bold;',
+            'style': 'background-color: white; color: black; font-bold;',
         })
         self.fields['password2'].widget = forms.PasswordInput(attrs={;
             'placeholder': 'Confirm your password',
             'class': 'form-control',
-            'style': 'background-color: white; color: #333333; font-bold;',
+            'style': 'background-color: white; color: black; font-bold;',
         })
