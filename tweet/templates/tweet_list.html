@@ -41,7 +41,7 @@ MediaHub
             {% if tweet.text|length > 100 %}
               {{ tweet.text|truncatechars:100 }} 
               <span class="show-more" style="cursor: pointer; color: #007bff;">... Show more</span>
-              <!-- Full text in a hidden div -->
+              <!-- Full text in a hidden span -->
               <span id="tweet-text-full-{{ tweet.id }}" style="display: none;">{{ tweet.text }}</span>
             {% else %}
               {{ tweet.text }}
@@ -161,10 +161,13 @@ MediaHub
       element.addEventListener("click", function () {
         const tweetId = this.closest('.card').querySelector('.card-body').getAttribute('id').split('-')[2];  // Get tweet ID
         const tweetTextElement = document.getElementById('tweet-text-' + tweetId); // Truncated tweet text
-        const fullText = document.getElementById('tweet-text-full-' + tweetId).textContent; // Full tweet text
+        const fullTextElement = document.getElementById('tweet-text-full-' + tweetId); // Full tweet text
 
-        tweetTextElement.innerHTML = fullText;  // Update truncated text with full text
-        this.style.display = "none";  // Hide "Show more" button after it's clicked
+        // Replace the truncated text with the full text
+        tweetTextElement.innerHTML = fullTextElement.innerHTML;
+
+        // Hide "Show more" after it's clicked
+        this.style.display = "none"; 
       });
     });
   });
