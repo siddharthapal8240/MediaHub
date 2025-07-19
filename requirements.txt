@@ -1,7 +1,7 @@
 asgiref==3.3.4
 certifi==2024.12.14
 charset-normalizer==3.1.0
-cloudinary==1.36.0
+cloudinary==1.41.0
 dj-database-url==0.5.0
 Django==3.2.22
 django-cloudinary-storage==0.3.0
@@ -11,6 +11,7 @@ gunicorn==20.1.0
 idna==3.4
 packaging==21.3
 pillow==9.5.0
+psycopg2-binary==2.9.9
 pymongo==3.11.4
 python-decouple==3.8
 python-dotenv==0.21.0
