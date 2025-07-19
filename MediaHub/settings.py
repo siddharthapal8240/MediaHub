@@ -32,6 +32,7 @@ INSTALLED_APPS = [
 # Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Added for static files in production
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -79,7 +80,7 @@ CLOUDINARY_STORAGE = {
     'API_KEY': os.getenv('API_KEY'),
     'API_SECRET': os.getenv('API_SECRET'),
     'UPLOAD_OPTIONS': {
-        'folder': 'mediahub/',  # Ensure all media uploads go to this folder
+        'folder': 'mediahub/',
     }
 }
 
@@ -105,12 +106,16 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static and media files
+# ✅ Static and media files
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Required for Render
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# ✅ WhiteNoise static file compression
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Auth redirects
 LOGIN_URL = '/accounts/login'
