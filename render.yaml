@@ -2,6 +2,7 @@ services:
   - type: web
     name: mediahub
     env: python
+    runtimeVersion: python-3.12.10
     buildCommand: |
       pip install -r requirements.txt
       python manage.py collectstatic --noinput
