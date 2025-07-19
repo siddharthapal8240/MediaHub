@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: mediahub
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn MediaHub.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: MediaHub.settings
