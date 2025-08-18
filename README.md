@@ -36,7 +36,7 @@ Here are representations of MediaHub across various devices:
 ## 🛠️ Technologies Used
 - **Frontend**: HTML, CSS, Bootstrap
 - **Backend**: Django
-- **Database**: Postgresql
+- **Database**: Mongodb
 - **Media Handling**: Cloudinary
 - **Icons**: FontAwesome
 
